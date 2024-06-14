@@ -31,54 +31,72 @@ df = df.drop(columns=["Timestamp"])
 df.head()
 
 # %%
-# Replace Column Header 1 with "Angry" and Column Header 2 with "Happy"
-df.columns = ['Angry', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise']
+# Replace Column Header Names with simpler names
+df.columns = ['Angry', 'Angry_Artist', 
+              'Fear', 'Fear_Artist',
+              'Happy', 'Happy_Artist',
+              'Neutral', 'Neutral_Artist',
+              'Sad', 'Sad_Artist',
+              'Surprise', 'Surprise_Artist'
+              ]
 
 df.head()
 
 # %%
-# Create a Function that takes the user input of an emotion and output a random song title that matches that emotion
+# Create a Function that takes the user input of an emotion and output a 
+# random song title with it's artist that matches that emotion
 
-def get_song_title(emotion):
-    # Check if the emotion is "Angry" or "Happy"
+def lookup_song(emotion):
+    # Format the emotion to have the first letter capitalized
     emotion = emotion.capitalize()
     if emotion == "Angry":
         # Get a random song title from the "Angry" column
         song_title = df["Angry"].sample().values[0]
-        return song_title, emotion
+        # Get the artist of the song
+        artist = df["Angry_Artist"].sample().values[0]
+        return song_title, artist, emotion
     elif emotion == "Fear":
         # Get a random song title from the "Fear" column
         song_title = df["Fear"].sample().values[0]
-        return song_title, emotion
+        # Get the artist of the song
+        artist = df["Fear_Artist"].sample().values[0]
+        return song_title, artist, emotion
     elif emotion == "Happy":
         # Get a random song title from the "Happy" column
         song_title = df["Happy"].sample().values[0]
-        return song_title, emotion
+        # Get the artist of the song
+        artist = df["Happy_Artist"].sample().values[0]
+        return song_title, artist, emotion
     elif emotion == "Neutral":
         # Get a random song title from the "Neutral" column
         song_title = df["Neutral"].sample().values[0]
-        return song_title, emotion
+        # Get the artist of the song
+        artist = df["Neutral_Artist"].sample().values[0]
+        return song_title, artist, emotion
     elif emotion == "Sad":
         # Get a random song title from the "Sad" column
         song_title = df["Sad"].sample().values[0]
-        return song_title, emotion
+        # Get the artist of the song
+        artist = df["Sad_Artist"].sample().values[0]
+        return song_title, artist, emotion
     elif emotion == "Surprise":
         # Get a random song title from the "Surprise" column
         song_title = df["Surprise"].sample().values[0]
-        return song_title, emotion
+        # Get the artist of the song
+        artist = df["Surprise_Artist"].sample().values[0]
+        return song_title, artist, emotion
     else:
         return "Invalid emotion! Please enter one of the following emotions: Angry, Fear, Happy, Neutral, Sad, Surprise"
-
 
 # %%
 # Get the user input of an emotion
 emotion = input("Please enter an emotion: ")
 
 # Get the song title that matches the emotion
-song_title, emotion = get_song_title(emotion)
+song_title, artist, emotion = lookup_song(emotion)
 
 # Print the song title
-print(f"The song title that matches the emotion '{emotion}' is: {song_title}")
+print(f"The song title that matches the emotion '{emotion}' is: {song_title} by {artist}")
 
 # %%
 
