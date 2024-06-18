@@ -6,7 +6,7 @@ import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-%matplotlib inline
+# %matplotlib inline # Commented out for use in Google Colab
 
 # Import Libraries for Unsupervised Learning on Tabular Data
 from sklearn.cluster import KMeans
