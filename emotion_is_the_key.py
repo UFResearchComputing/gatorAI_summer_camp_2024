@@ -89,14 +89,13 @@ def lookup_song(emotion):
         return "Invalid emotion! Please enter one of the following emotions: Angry, Fear, Happy, Neutral, Sad, Surprise"
 
 # %%
-# Get the user input of an emotion
-emotion = input("Please enter an emotion: ")
+def emotion_input_test(emotion):
+    # Test the lookup_song function
+    song_title, artist, emotion = lookup_song(emotion)
+    print(f"The song title that matches the emotion '{emotion}' is: {song_title} by {artist}")
 
-# Get the song title that matches the emotion
-song_title, artist, emotion = lookup_song(emotion)
-
-# Print the song title
-print(f"The song title that matches the emotion '{emotion}' is: {song_title} by {artist}")
+# Test the lookup_song function
+# emotion_input_test("Angry")
 
 # %%
 
