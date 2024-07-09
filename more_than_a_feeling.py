@@ -6,7 +6,7 @@ import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-# %matplotlib inline # Commented out for use in Google Colab
+%matplotlib inline
 
 # Import Libraries for Unsupervised Learning on Tabular Data
 from sklearn.cluster import KMeans
@@ -32,7 +32,7 @@ def load_data():
     return data
 
 df = load_data()
-df.head()
+# df.head()
 
 
 
@@ -67,7 +67,7 @@ def visualize_clusters(df, model):
     plt.title('KMeans Clusters')
     plt.show()
 
-visualize_clusters(pp_df, model)
+# visualize_clusters(pp_df, model)
 
 # %%
 # Show a sample of songs from each cluster
@@ -79,7 +79,7 @@ def show_cluster_samples(df, model, n_samples):
         print(sample[['track_name', 'artist_name', 'popularity']])
         print('\n')
 
-show_cluster_samples(original_df, model, 3)
+# show_cluster_samples(original_df, model, 3)
 
 
 # %%
@@ -100,7 +100,7 @@ def visualize_clusters_with_songs(df, original_df, model):
 
 # Add 'cluster' column to the original dataframe
 original_df['cluster'] = model.labels_
-visualize_clusters_with_songs(pp_df, original_df, model)
+# visualize_clusters_with_songs(pp_df, original_df, model)
 
 # %%
 # Recommend a song from a given cluster
@@ -111,60 +111,7 @@ def recommend_songs(df, model, cluster):
     return song[['track_name', 'artist_name', 'popularity']]
 
 # Recommend a song from cluster 0
-print(recommend_songs(original_df, model, 0))
-
-# %%
-'''This Block creates a function to:
-1. Take a song name and artist name as input.
-2. Get audio features for a song using the Spotify API.
-3. Run the KMeans model to predict the cluster for the song.
-4. Recommend a song from the same cluster as the input song.
-'''
-
-# Create a function to get audio features for a song using the Spotify API
-def get_audio_features_from_spotify(song_name, artist_name, client_id, client_secret):
-    # Initialize Spotipy API client
-    sp = spotipy.Spotify(client_credentials_manager=spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret))
-    # Search for the song
-    results = sp.search(q=f'track:{song_name} artist:{artist_name}', limit=1)
-    # Get the track ID
-    track_id = results['tracks']['items'][0]['id']
-    # Get the audio features
-    audio_features = sp.audio_features(track_id)[0]
-    return audio_features
-
-'''# Create a function to recommend a song from the same cluster as the input song
-def recommend_song_from_cluster(df, model, song_name, artist_name, client_id, client_secret):
-    # Get audio features for the input song
-    audio_features = get_audio_features_from_spotify(song_name, artist_name, client_id, client_secret)
-    # Preprocess the audio features
-    scaler = StandardScaler()
-    pp_audio_features = scaler.fit_transform(np.array(list(audio_features.values())[2:-1]).reshape(1, -1))
-    # Predict the cluster for the input song
-    cluster = model.predict(pp_audio_features)[0]
-    # Recommend a song from the same cluster
-    return recommend_songs(df, model, cluster)'''
-
-def recommend_song_from_cluster(df, model, song_name, artist_name, client_id, client_secret):
-    # Get audio features for the input song
-    audio_features = get_audio_features_from_spotify(song_name, artist_name, client_id, client_secret)
-    
-    # Specify the relevant audio feature keys (example keys, adjust based on your model's needs)
-    audio_keys = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature', 'popularity']
-    relevant_features = [audio_features[key] for key in audio_keys if key in audio_features]
-    
-    # Preprocess the audio features
-    scaler = StandardScaler()
-    pp_audio_features = scaler.fit_transform(np.array(relevant_features).reshape(1, -1))
-    
-    # Predict the cluster for the input song
-    cluster = model.predict(pp_audio_features)[0]
-    
-    # Recommend a song from the same cluster
-    return recommend_songs(df, model, cluster)
-
-# Test the function with "Affection" by Crystal Castles
-print(recommend_song_from_cluster(original_df, model, 'Affection', 'Crystal Castles', client_id, client_secret))
+# print(recommend_songs(original_df, model, 0))
 
 # %%
 # Create a function to get audio features for a song using the Spotify API
@@ -172,11 +119,17 @@ def get_audio_features_from_spotify(song_name, artist_name, client_id, client_se
     # Initialize Spotipy API client
     sp = spotipy.Spotify(client_credentials_manager=spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret))
     # Search for the song
-    results = sp.search(q=f'track:{song_name} artist:{artist_name}', limit=1)
+    results = sp.search(q=f'track:{song_name} artist:{artist_name}', limit=5)
     # Handle the case where the song is not found
     if not results['tracks']['items']:
         return None
-    # Get the track ID
+    '''# Filter out explicit tracks
+    filtered_recs = []
+    for track in results['tracks']:
+        if not track['explicit']:
+            filtered_recs.append(track)
+    print(filtered_recs)'''
+
     track_id = results['tracks']['items'][0]['id']
     # Get the audio features
     audio_features = sp.audio_features(track_id)[0]
@@ -210,7 +163,7 @@ def recommend_song_from_cluster(df, model, song_name, artist_name, client_id, cl
     return recommend_songs(df, model, cluster)
 
 # Test the function with "Affection" by Crystal Castles
-print(recommend_song_from_cluster(original_df, model, 'Affection', 'Crystal Castles', client_id, client_secret))
+# print(recommend_song_from_cluster(original_df, model, 'Affection', 'Crystal Castles', client_id, client_secret))
 
 
 
