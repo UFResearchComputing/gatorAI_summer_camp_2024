@@ -133,12 +133,14 @@ def get_audio_features_from_spotify(song_name, artist_name, client_id, client_se
     track_id = results['tracks']['items'][0]['id']
     # Get the audio features
     audio_features = sp.audio_features(track_id)[0]
-    return audio_features
+    # Get the track uri
+    track_uri = results['tracks']['items'][0]['uri']
+    return audio_features, track_uri
 
 # Create a function to recommend a song from the same cluster as the input song
 def recommend_song_from_cluster(df, model, song_name, artist_name, client_id, client_secret):
     # Get audio features for the input song
-    audio_features = get_audio_features_from_spotify(song_name, artist_name, client_id, client_secret)
+    audio_features, track_uri = get_audio_features_from_spotify(song_name, artist_name, client_id, client_secret)
     if not audio_features:
         return "Song not found in Spotify database."
     
@@ -160,7 +162,7 @@ def recommend_song_from_cluster(df, model, song_name, artist_name, client_id, cl
     cluster = model.predict(pp_audio_features)[0]
     
     # Recommend a song from the same cluster
-    return recommend_songs(df, model, cluster)
+    return recommend_songs(df, model, cluster), track_uri
 
 # Test the function with "Affection" by Crystal Castles
 # print(recommend_song_from_cluster(original_df, model, 'Affection', 'Crystal Castles', client_id, client_secret))
