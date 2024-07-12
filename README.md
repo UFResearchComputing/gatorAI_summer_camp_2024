@@ -1,9 +1,13 @@
-# gatorAI_summer_camp_2024
+# Gator AI Summer Camp 2024 Applied Exercise
+![Gato AI Summer Camp logo](images/gator_ai_camp_2024_logo_500.png)
 
-!!! Insert Fun Text Here !!!
+This repository is the exercises that will lead participants in the 2024 Gator AI Summer Camp on an applied AI experience.
 
-Rough overview:
-1. Train a model on labeled "emotion" face images.
-2. Create a notebook that uses emotion/song key pairs to output songs when emotions are given.
-3. Train a model on unlabeled music metadata to group like music.
-4. Create a program that takes the initial input of video and feeds samples to Model A, which generates an input to our Table, which generates an input to Model B, which outputs a song!
+Participants will get experience with image classification and facial recognition models, unsupervised learning, and more. These notebooks are not intended to contain all the information and will be used in a classroom setting, with instructors leading the participants through the exercises and discussing what is happening at each step, providing important AI ethics framing and more.
+ 
+Rough overview of the experience:
+1. Train an image classification model to classify emotions from images of faces. 
+2. Collect data for AI applications, including additional images of a new emotion and data to link emotions to songs.
+3. Train an unsupervised model on unlabeled music metadata to cluster songs with similar features.
+4. Create a program that takes video input and feeds frames to the emotion recognition model. The detected emotion is used to select a sample song identified with that emotion and then that is used to find another song from the same cluster. 
+5. Lastly, the Spotify API is used to play the selected song. 
