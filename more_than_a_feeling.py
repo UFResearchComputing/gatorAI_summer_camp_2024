@@ -182,7 +182,7 @@ def recommend_song_from_audio_features(df, model, audio_features, scaler):
 def recommend_song_from_cluster(df, model, song_name, artist_name, client_id, client_secret):
     # Get audio features for the input song
     audio_features, track_uri = get_audio_features(song_name, artist_name, client_id, client_secret)
-    if not audio_features:
+    if audio_features.empty:
         return "Song not found in Spotify database."
     
     # Specify the relevant audio feature keys
