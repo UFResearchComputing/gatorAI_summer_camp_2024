@@ -80,7 +80,7 @@ def visualize_clusters(df, model):
     plt.title('KMeans Clusters')
     plt.show()
 
-visualize_clusters(pp_df, model)
+#visualize_clusters(pp_df, model)
 
 # Show a sample of songs from each cluster
 def show_cluster_samples(df, model, n_samples):
