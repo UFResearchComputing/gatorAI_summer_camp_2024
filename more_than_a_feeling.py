@@ -161,7 +161,7 @@ def get_audio_features(track_name, artist_name, client_id, client_secret):
     audio_features_df = audio_features_df.drop(['type', 'id', 'uri', 'track_href', 'analysis_url'], axis=1)
     # Rearrange columns to match the original DataFrame
     audio_features_df = audio_features_df[['acousticness','danceability', 'duration_ms', 'energy', 'instrumentalness', 'key', 'liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'popularity']]
-    return audio_features_df
+    return audio_features_df, track_id
 
 # Get audio features for 'With or Without You' by U2
 #audio_features = get_audio_features('With or Without You', 'U2', client_id, client_secret)
