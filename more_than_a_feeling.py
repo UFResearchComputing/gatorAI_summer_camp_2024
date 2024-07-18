@@ -168,7 +168,7 @@ def get_audio_features(track_name, artist_name, client_id, client_secret):
 #print(audio_features)
 
 # Recommend a song based on the new song 'With or Without You' by U2
-def recommend_song_from_audio_features(df, model, audio_features, scaler):
+def recommend_song_from_audio_features(df, model, audio_features, scaler=StandardScaler()):
     # Scale the audio features
     audio_features_scaled = scaler.transform(audio_features)
     # Predict the cluster
@@ -203,4 +203,4 @@ def recommend_song_from_cluster(df, model, song_name, artist_name, client_id, cl
     cluster = model.predict(pp_audio_features)[0]
     
     # Recommend a song from the same cluster
-    return recommend_song_from_audio_features(df, model, cluster), track_uri
+    return recommend_song_from_audio_features(df, model, audio_features), track_uri
