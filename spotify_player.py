@@ -11,7 +11,7 @@ Original file is located at
 This notebook authenticates with Spotify and handles the playback of a song.
 """
 
-!pip install spotipy
+#!pip install spotipy
 
 # Import the necessary libraries
 import spotipy
@@ -68,7 +68,7 @@ def play_song(track_uri):
 # Example usage
 # play_song("spotify:track:3AFpIlNR4DEJ1WC7qyOHU8")  # Play 'Affection' by Crystal Castles
 
-play_song("spotify:track:3AFpIlNR4DEJ1WC7qyOHU8")
+#play_song("spotify:track:3AFpIlNR4DEJ1WC7qyOHU8")
 
 def get_song_uri(song_name, artist_name):
   results = spotify.search(q=f'track:{song_name} artist:{artist_name}', type='track')
@@ -77,5 +77,5 @@ def get_song_uri(song_name, artist_name):
   else:
     return None
 
-get_song_uri("Happy", "Pharrel Williams")
+#get_song_uri("Happy", "Pharrel Williams")
 

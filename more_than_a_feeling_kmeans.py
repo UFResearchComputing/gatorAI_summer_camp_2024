@@ -11,7 +11,7 @@ Original file is located at
 This notebook introduces unsupervised learning and clustering methods. It created clusters of songs based on Spotify features like dancability and popularity.
 """
 
-!pip install spotipy
+#!pip install spotipy
 
 # Commented out IPython magic to ensure Python compatibility.
 # Import Libraries
@@ -36,9 +36,9 @@ import spotipy
 
 # Download the data from Kaggle and unzip into the data folder
 
-!kaggle datasets download -d tomigelo/spotify-audio-features
-!mkdir data
-!unzip spotify-audio-features.zip -d data
+#!kaggle datasets download -d tomigelo/spotify-audio-features
+#!mkdir data
+#!unzip spotify-audio-features.zip -d data
 
 # Create a function to load the data from two csv files and concatenate them
 def load_data():
@@ -50,7 +50,7 @@ def load_data():
     return data
 
 df = load_data()
-df.head()
+#df.head()
 
 # Preprocess the data
 def preprocess_data(df):
@@ -91,7 +91,7 @@ def show_cluster_samples(df, model, n_samples):
         print(sample[['track_name', 'artist_name', 'popularity']])
         print('\n')
 
-show_cluster_samples(original_df, model, 3)
+#show_cluster_samples(original_df, model, 3)
 
 # Visualize clusters with most popular songs
 def visualize_clusters_with_songs(df, original_df, model):
@@ -109,8 +109,8 @@ def visualize_clusters_with_songs(df, original_df, model):
     plt.show()
 
 # Add 'cluster' column to the original dataframe
-original_df['cluster'] = model.labels_
-visualize_clusters_with_songs(pp_df, original_df, model)
+#original_df['cluster'] = model.labels_
+#visualize_clusters_with_songs(pp_df, original_df, model)
 
 # Recommend a song from a given cluster
 def recommend_songs(df, model, cluster):
@@ -120,7 +120,7 @@ def recommend_songs(df, model, cluster):
     return song[['track_name', 'artist_name', 'popularity']]
 
 # Recommend a song from cluster 0
-print(recommend_songs(original_df, model, 0))
+#print(recommend_songs(original_df, model, 0))
 
 # Recommend a song based on a given song from the model
 def recommend_song(df, model, song_name):
@@ -134,13 +134,13 @@ def recommend_song(df, model, song_name):
     return recommend_songs(df, model, cluster)
 
 # Recommend a song based on 'Shape of You' by Ed Sheeran
-print(recommend_song(original_df, model, 'Breath'))
+#print(recommend_song(original_df, model, 'Breath'))
 
 # Load Spotify credentials--replace part in quotes with what you called the credentials in the credential manager
 # A pop up will ask you to grant access to the credentials if you don't have that already selected
 
-client_id = userdata.get('spotify_client_id_matt')
-client_secret = userdata.get('spotify_client_secret_matt')
+client_id = userdata.get('client_id')
+client_secret = userdata.get('client_secret')
 
 # Pull audio features for a given song from Spotify and return them in a format that can be used by the model
 def get_audio_features(track_name, artist_name, client_id, client_secret):
@@ -164,8 +164,8 @@ def get_audio_features(track_name, artist_name, client_id, client_secret):
     return audio_features_df
 
 # Get audio features for 'With or Without You' by U2
-audio_features = get_audio_features('With or Without You', 'U2', client_id, client_secret)
-print(audio_features)
+#audio_features = get_audio_features('With or Without You', 'U2', client_id, client_secret)
+#print(audio_features)
 
 # Recommend a song based on the new song 'With or Without You' by U2
 def recommend_song_from_audio_features(df, model, audio_features, scaler):
@@ -176,6 +176,6 @@ def recommend_song_from_audio_features(df, model, audio_features, scaler):
     return recommend_songs(df, model, cluster)
 
 # Recommend a song based on 'With or Without You' by U2
-print(recommend_song_from_audio_features(original_df, model, audio_features, scaler))
+#print(recommend_song_from_audio_features(original_df, model, audio_features, scaler))
 
 # Cheese

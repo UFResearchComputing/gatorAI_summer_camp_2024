@@ -30,13 +30,13 @@ df = pd.read_csv(url)
 # Save the DataFrame as a CSV file in the current directory
 df.to_csv("output.csv", index=False)
 
-df.head()
+#df.head()
 
 # Drop the first column of the DataFrame
 
 df = df.drop(columns=["Timestamp"])
 
-df.head()
+#df.head()
 
 # Replace Column Header Names with simpler names
 df.columns = ['Angry', 'Angry_Artist',
@@ -48,9 +48,8 @@ df.columns = ['Angry', 'Angry_Artist',
               'Disgust', 'Disgust_Artist'
               ]
 
-df.head()
+#df.head()
 
-df
 
 # Create a Function that takes the user input of an emotion and output a
 # random song title with it's artist that matches that emotion
@@ -87,5 +86,5 @@ def emotion_input_test(emotion):
     print(f"The song title that matches the emotion '{emotion}' is: {song_title} by {artist}")
 
 # Test the lookup_song function
-emotion_input_test('sad')
+#emotion_input_test('sad')
 
